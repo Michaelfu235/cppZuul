@@ -10,6 +10,6 @@ class item{
   item(char* namae);
 
   char* itemName;
-  virtual char* getItemName;
+  virtual char* getItemName();
 };
 #endif
