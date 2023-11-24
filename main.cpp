@@ -14,7 +14,10 @@ int main(){
   strcpy(namae, "testing2");
   item* temp = new item(namae);
   itemstest.push_back(temp);
-  vector<bool> exitstest{true, false, false, true};
-  room* test = new room(0, namee, itemstest, exitstest);
+  map<char, int> testexits;
+  testexits['E']=1;
+  testexits['N']=5;
+    
+  room* test = new room(0, namee, itemstest, testexits);
   test->printRoom();
 }

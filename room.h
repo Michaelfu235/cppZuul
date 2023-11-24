@@ -3,18 +3,19 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include <map>
 #include "item.h"
 
 using namespace std;
 
 class room{
  public:
-  room(int m, char* n, vector<item*> l, vector<bool> e);
+  room(int m, char* n, vector<item*> l, map<char,int> e);
 
   int id;
   char* name;
   vector<item*> items;
-  vector<bool> exits;
+  map<char,int> exits;
 
 
   virtual int getID();
