@@ -8,10 +8,12 @@
 
 using namespace std;
 
-room::room(int m, char* n, vector<item*> l, map<char,int> e){
+room::room(int m, char* n, char* d, vector<item*> l, map<char,int> e){
   name = new char[80];
   strcpy(name, n);
   id = m;
+  description = new char[200];
+  strcpy(description, d);
   exits = e;
   items = l;
 }
@@ -23,6 +25,8 @@ int room::getID(){
 
 void room::printRoom(){
   cout << "You are in room " << name << endl;
+  cout << description << endl;
+  cout << endl;
   cout << "Exits: " << endl;
   map<char, int>::iterator itr;
   for(itr=exits.begin(); itr!=exits.end(); ++itr){
@@ -49,4 +53,18 @@ void room::printRoom(){
   } else {
     cout << "No items in the room" << endl;
   }
+}
+
+
+void room::removeItem(char nme[]){
+  for(int i = 0;i<items.size();i++){
+    if(strcmp(items[0]->getItemName(),nme)==0){
+      items.erase(items.begin()+i);
+    }
+  }
+}
+
+void room::addItem(char* nme){
+  item* newItem = new item(nme);
+  items.push_back(newItem);
 }
