@@ -23,6 +23,6 @@ class room{
   virtual void printRoom();
   virtual void removeItem(char nme[]);
   virtual void addItem(char* nme);
-  
+  virtual int exitRoom(char gotoo[]);
 };
 #endif

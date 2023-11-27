@@ -6,12 +6,16 @@
 
 using namespace std;
 
+
+void goo(int &current, vector<room*> &rooms, char gotoo[]);
+
 int main(){
   vector<room*> rooms;
   vector<item*> inventory;
   bool justKeepGoing=true;
   char input[80];
-
+  int currentRoom = 0;
+  
   //creating the rooms :\
   //1-20 lab
 
@@ -37,59 +41,94 @@ int main(){
   //north
   char* northname = new char[10];
   strcpy(northname, "north");
-  char* northdes = new char[200];
+  char* northdes = new char[100];
   strcpy(northdes, "this room is north of 1-20");
   map<char, int> northexits;
   northexits['N']=5;
+  northexits['S']=0;
   vector<item*> northitems;
 
   room* north = new room(1, northname, northdes, northitems, northexits);
   char* northpol = new char[15];
   strcpy(northpol, "north pole");
   north->addItem(northpol);
-
-
+  rooms.push_back(north);
+  
+  
   //south
   char* southname = new char[10];
   strcpy(southname, "south");
-  char* southdes = new char[200];
+  char* southdes = new char[100];
   strcpy(southdes, "this room is south of 1-20");
   map<char, int> southexits;
   southexits['S']=6;
+  southexits['N']=0;
   vector<item*> southitems;
 
   room* south = new room(3, southname, southdes, southitems, southexits);
   char* southpol = new char[15];
   strcpy(southpol, "south pole");
   south->addItem(southpol);
+  rooms.push_back(south);
 
-  south->printRoom();
 
+  //east
+  char* eastname = new char[10];
+  strcpy(eastname, "east");
+  char* eastdes = new char[100];
+  strcpy(eastdes, "this room is east of 1-20");
+  map<char, int> eastexits;
+  eastexits['E']=7;
+  eastexits['W']=0;
+  vector<item*> eastitems;
+
+  room* east = new room(2, eastname, eastdes, eastitems, eastexits);
+  char* eastsunrise = new char[30];
+  strcpy(eastsunrise, "the sunrise from the east");
+  east->addItem(eastsunrise);
+  rooms.push_back(east);
+  
+  
+  //west
+  char* westname = new char[10];
+  strcpy(westname, "west");
+  char* westdes = new char[100];
+  strcpy(westdes, "this room is west of 1-20");
+  map<char, int> westexits;
+  westexits['W']=8;
+  westexits['E']=0;
+  vector<item*> westitems;
+
+  room* west = new room(4, westname, westdes, westitems, westexits);
+  rooms.push_back(west);
+	 
+  for(int i = 0;i<rooms.size();i++){
+    rooms[i]->printRoom();
+  }
 
   
-  rooms[0]->printRoom();
+  cout << currentRoom << endl;
 
+  char temporary[] = "NORTH";
+  goo(currentRoom, rooms, temporary);
 
-  
-  char* namee = new char[10];
-  strcpy(namee, "testing");
-  vector<item*> itemstest;
-  char* namae = new char[10];
-  strcpy(namae, "testing2");
-  item* temp = new item(namae);
-  itemstest.push_back(temp);
-  map<char, int> testexits;
-  testexits['E']=1;
-  testexits['N']=5;
-  char* descriptii = new char[200];
-  strcpy(descriptii,"This is the testing room hopefully it works or smth :) idk!");
-  char* testing3 = new char[15];
-  strcpy(testing3, "alhoeubat");
-  char* rando = new char[16];
-  strcpy(rando, "testing2");
-  
-  room* test = new room(0, namee, descriptii, itemstest, testexits);
-  test->removeItem(rando);
-  test->addItem(testing3);
-  test->printRoom();
+  cout << currentRoom << endl;
+
+  char temporary2[] = "WEST";
+  goo(currentRoom, rooms, temporary2);
+
+  cout << currentRoom << endl;
 }
+
+
+
+void goo(int &current, vector<room*> &rooms, char gotoo[]){
+  char where = gotoo[0];
+  if(rooms[current]->exitRoom(gotoo) != -1){
+    current = rooms[current]->exitRoom(gotoo);
+
+  } else {
+    cout << "that is not a valid exit." << endl;
+  }
+}
+

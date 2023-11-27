@@ -41,8 +41,6 @@ void room::printRoom(){
     }
   }
   cout << endl;
-
-
   if(items.size() > 0){
     cout << "Items: " << endl;
     for(int i = 0;i<items.size();i++){
@@ -53,6 +51,7 @@ void room::printRoom(){
   } else {
     cout << "No items in the room" << endl;
   }
+  cout << endl;
 }
 
 
@@ -67,4 +66,15 @@ void room::removeItem(char nme[]){
 void room::addItem(char* nme){
   item* newItem = new item(nme);
   items.push_back(newItem);
+}
+
+int room::exitRoom(char gotoo[]){
+  map<char, int>::iterator it;
+  
+  for(it = exits.begin();it!=exits.end();++it){
+    if(it->first == gotoo[0]){
+      return(it->second);
+    }
+  }
+  return -1;
 }
