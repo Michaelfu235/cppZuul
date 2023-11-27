@@ -8,7 +8,8 @@ using namespace std;
 
 
 void goo(int &current, vector<room*> &rooms, char gotoo[]);
-void get(int current, vector<room*> &rooms, char getting[], vector<item*> &inventory);
+void get(int current, vector<room*> &rooms, char getting[], vector<char*> &inventory);
+void drop(int current, vector<room*> &rooms, char dropping[], vector<char*> &inventory);
 
 int main(){
   vector<room*> rooms;
@@ -102,7 +103,9 @@ int main(){
 
   room* west = new room(4, westname, westdes, westitems, westexits);
   rooms.push_back(west);
-	 
+
+  /*
+  
   for(int i = 0;i<rooms.size();i++){
     rooms[i]->printRoom();
   }
@@ -119,6 +122,26 @@ int main(){
   goo(currentRoom, rooms, temporary2);
 
   cout << currentRoom << endl;
+
+  char getts[] = "north pole";
+  get(currentRoom, rooms, getts, inventory);
+
+  for(int i = 0;i<inventory.size();i++){
+    cout << inventory[i] << endl;
+  }
+
+  rooms[currentRoom]->printRoom();
+
+  char temporary3[] = "SOUTH";
+  char temporary4[] = "north pole";
+  
+  goo(currentRoom, rooms, temporary3);
+
+  rooms[currentRoom]->printRoom();
+  drop(currentRoom, rooms, temporary4, inventory);
+
+  rooms[currentRoom]->printRoom();
+  */
 }
 
 
@@ -145,4 +168,19 @@ void get(int current, vector<room*> &rooms, char getting[], vector<char*> &inven
   } else {
     cout << "This item either does not exist or is not in this room. " << endl;
   }
+}
+
+
+void drop(int current, vector<room*> &rooms, char dropping[], vector<char*> &inventory){
+  char* drop = new char[10];
+  strcpy(drop, dropping);
+  for(int i = 0;i<inventory.size();i++){
+    if(strcmp(inventory[i],drop)==0){
+      rooms[current]->addItem(drop);
+      inventory.erase(inventory.begin() + i);
+      cout << drop << " has been dropped from your inventory into the room." << endl;
+      return;
+    }
+  }
+  cout << drop << " is not in your inventory. " << endl;
 }

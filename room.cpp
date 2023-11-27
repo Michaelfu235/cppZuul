@@ -44,7 +44,7 @@ void room::printRoom(){
   if(items.size() > 0){
     cout << "Items: " << endl;
     for(int i = 0;i<items.size();i++){
-      cout << items[i]->getItemName() << " ";
+      cout << i+1 << ") " << items[i]->getItemName() << endl;
       
     }
     cout << endl;
@@ -79,7 +79,7 @@ int room::exitRoom(char gotoo[]){
   return -1;
 }
 
-bool findItem(char* lookingfor){
+bool room::findItem(char* lookingfor){
   int temp = items.size();
   for(int i = 0;i<items.size();i++){
     if(strcmp(lookingfor, items[i]->getItemName())==0){
