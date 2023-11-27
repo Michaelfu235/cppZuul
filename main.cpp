@@ -8,10 +8,11 @@ using namespace std;
 
 
 void goo(int &current, vector<room*> &rooms, char gotoo[]);
+void get(int current, vector<room*> &rooms, char getting[], vector<item*> &inventory);
 
 int main(){
   vector<room*> rooms;
-  vector<item*> inventory;
+  vector<char*> inventory;
   bool justKeepGoing=true;
   char input[80];
   int currentRoom = 0;
@@ -132,3 +133,16 @@ void goo(int &current, vector<room*> &rooms, char gotoo[]){
   }
 }
 
+
+
+void get(int current, vector<room*> &rooms, char getting[], vector<char*> &inventory){
+  char* lookingfor = new char[20];
+  strcpy(lookingfor, getting);
+  if(rooms[current]->findItem(lookingfor)==true){
+    rooms[current]->removeItem(getting);
+    inventory.push_back(lookingfor);
+    cout << lookingfor << " has been added to your inventory. " << endl;
+  } else {
+    cout << "This item either does not exist or is not in this room. " << endl;
+  }
+}

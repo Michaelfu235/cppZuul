@@ -24,5 +24,6 @@ class room{
   virtual void removeItem(char nme[]);
   virtual void addItem(char* nme);
   virtual int exitRoom(char gotoo[]);
+  virtual bool findItem(char* lookingfor);
 };
 #endif

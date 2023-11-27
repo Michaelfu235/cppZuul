@@ -78,3 +78,13 @@ int room::exitRoom(char gotoo[]){
   }
   return -1;
 }
+
+bool findItem(char* lookingfor){
+  int temp = items.size();
+  for(int i = 0;i<items.size();i++){
+    if(strcmp(lookingfor, items[i]->getItemName())==0){
+      return true;
+    }
+  }
+  return false;
+}
