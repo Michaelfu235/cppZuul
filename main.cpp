@@ -150,7 +150,7 @@ int main(){
   northnortheastexits['W']=5;
   vector<item*> northnortheastitems;
 
-  room* northnortheast = new room[10, northnortheastname, northnortheastdes, northnortheastitems, northnortheastexits);
+  room* northnortheast = new room(10, northnortheastname, northnortheastdes, northnortheastitems, northnortheastexits);
   rooms.push_back(northnortheast);
 
 
@@ -167,7 +167,7 @@ int main(){
   room* northwest = new room(16, northwestname, northwestdes, northwestitems, northwestexits);
   char* spaceneedle = new char[30];
   strcpy(spaceneedle, "seattle space needle");
-  northwest.addItem(spaceneedle);
+  northwest->addItem(spaceneedle);
   rooms.push_back(northwest);
 
 
@@ -219,18 +219,18 @@ int main(){
 
 
   //southwestwest
-  char* southsouthwestname = new char[20];
-  strcpy(southsouthwestname, "southsouthwest");
-  char* southsouthwestdes = new char[100];
-  strcpy(southsouthwestdes, "This room is south of southwest of 1-20.");
-  map<char, int> southsouthwestexits;
-  southsouthwestexits['N']=8;
-  southsouthwestexits['E']=11;
-  southsouthwestexits['S']=14;
-  vector<item*> southsouthwestitems;
+  char* southwestwestname = new char[20];
+  strcpy(southwestwestname, "southsouthwest");
+  char* southwestwestdes = new char[100];
+  strcpy(southwestwestdes, "This room is west of southwest of 1-20.");
+  map<char, int> southwestwestexits;
+  southwestwestexits['N']=8;
+  southwestwestexits['E']=11;
+  southwestwestexits['S']=14;
+  vector<item*> southwestwestitems;
 
-  room* southsouthwest = new room(12, southsouthwestname, southsouthwestdes, southsouthwestitems, southsouthwestexits);
-  rooms.push_back(southsouthwest);
+  room* southwestwest = new room(12, southwestwestname, southwestwestdes, southwestwestitems, southwestwestexits);
+  rooms.push_back(southwestwest);
 
 
   //southsouthwestwest
@@ -246,7 +246,52 @@ int main(){
   room* southsouthwestwest = new room(14, southsouthwestwestname, southsouthwestwestdes, southsouthwestwestitems, southsouthwestwestexits);
   rooms.push_back(southsouthwestwest);
 
+
+  //southsouthwest
+  char* southsouthwestname = new char[20];
+  strcpy(southsouthwestname, "southsouthwest");
+  char* southsouthwestdes = new char[100];
+  strcpy(southsouthwestdes, "This room is south of southwest of 1-20.");
+  map<char, int> southsouthwestexits;
+  southsouthwestexits['N']=11;
+  southsouthwestexits['W']=14;
+  southsouthwestexits['E']=6;
+  vector<item*> southsouthwestitems;
   
+  room* southsouthwest = new room(13, southsouthwestname, southsouthwestdes, southsouthwestitems, southsouthwestexits);
+  rooms.push_back(southsouthwest);
+
+
+  //southsouth
+  char* southsouthname = new char[20];
+  strcpy(southsouthname, "southsouth");
+  char* southsouthdes = new char[100];
+  strcpy(southsouthdes, "This room is south of south of 1-20.");
+  map<char, int> southsouthexits;
+  southsouthexits['W'] = 13;
+  southsouthexits['N']=3;
+  southsouthexits['E']=15;
+  vector<item*> southsouthitems;
+
+  room* southsouth = new room(6, southsouthname, southsouthdes, southsouthitems, southsouthexits);
+  rooms.push_back(southsouth);
+
+
+  //southsoutheasteast
+  char* southsoutheasteastname = new char[25];
+  strcpy(southsoutheasteastname, "southsoutheasteast");
+  char* southsoutheasteastdes = new char[100];
+  strcpy(southsoutheasteastdes, "This room is southeast of southeast of 1-20.");
+  map<char, int> southsoutheasteastexits;
+  southsoutheasteastexits['N']=7;
+  southsoutheasteastexits['W']=6;
+  vector<item*> southsoutheasteastitems;
+
+  room* southsoutheasteast = new room(15, southsoutheasteastname, southsoutheasteastdes, southsoutheasteastitems, southsoutheasteastexits);
+  rooms.push_back(southsoutheasteast);
+				      
+    
+    
   
   /*
   
@@ -286,6 +331,38 @@ int main(){
 
   rooms[currentRoom]->printRoom();
   */
+
+
+  while(justKeepGoing == true){
+    char firstword[40];
+    char secondword[40];
+    cin.get(input, 80);
+    cin.get();
+    int tempi = 0;
+    for(tempi = 0;tempi<strlen(input);tempi++){
+      firstword[i]=input[i];
+      if(input[i+1]==' ' || input[i+1]=='\0'){
+	break;
+      }
+    }
+    firstword[i+1]='\0';
+
+    int x = 0;
+    int y = 0;
+    for(x = tempi+2;x<strlen(input);x++){
+      secondword[y]=input[x];
+      y++;
+      if(input[x+1]=='\0'){
+	break;
+      }
+    }
+    secondword[y]='\0';
+
+    
+      
+
+  }
+  
 }
 
 
