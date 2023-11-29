@@ -1,3 +1,7 @@
+//Author: Michael Fu
+//Date: 11/29
+//This is the cpp file for the room class for Zuul.
+
 #include <iostream>
 #include <cstring>
 #include <vector>
@@ -8,7 +12,9 @@
 
 using namespace std;
 
+
 room::room(int m, char* n, char* d, vector<item*> l, map<char,int> e){
+  //initialize the funtions and variables
   name = new char[80];
   strcpy(name, n);
   id = m;
@@ -19,11 +25,13 @@ room::room(int m, char* n, char* d, vector<item*> l, map<char,int> e){
 }
 
 int room::getID(){
+  //return the id when called
   return id;
   
 }
 
 void room::printRoom(){
+  //go through the room and print the name, description, and exits. Then go through the items and print all the items. If there are no items, print that there are not items. 
   cout << "You are in room " << name << endl;
   cout << description << endl;
   cout << endl;
@@ -56,6 +64,7 @@ void room::printRoom(){
 
 
 void room::removeItem(char nme[]){
+  //remove items from the room. 
   for(int i = 0;i<items.size();i++){
     if(strcmp(items[0]->getItemName(),nme)==0){
       items.erase(items.begin()+i);
@@ -64,11 +73,13 @@ void room::removeItem(char nme[]){
 }
 
 void room::addItem(char* nme){
+  //add items to the room after creating a new item with the given name
   item* newItem = new item(nme);
   items.push_back(newItem);
 }
 
 int room::exitRoom(char gotoo[]){
+  //for exit room, go through the exits and if it is the one the user wants, then return the id of the room that the exit leads to. Otherwise, return -1;
   map<char, int>::iterator it;
   
   for(it = exits.begin();it!=exits.end();++it){
@@ -80,6 +91,7 @@ int room::exitRoom(char gotoo[]){
 }
 
 bool room::findItem(char* lookingfor){
+  //if the item exists in the room, return true. otherwise, return false;
   int temp = items.size();
   for(int i = 0;i<items.size();i++){
     if(strcmp(lookingfor, items[i]->getItemName())==0){

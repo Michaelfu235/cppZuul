@@ -1,3 +1,7 @@
+//Author: Michael Fu
+//Date: 11/29
+//This is the header for the room class. 
+
 #ifndef ROOM_H
 #define ROOM_H
 #include <iostream>
@@ -12,6 +16,7 @@ class room{
  public:
   room(int m, char* n, char* d, vector<item*> l, map<char,int> e);
 
+  //initialize variables
   int id;
   char* name;
   char* description;
@@ -19,6 +24,7 @@ class room{
   map<char,int> exits;
 
 
+  //initialize functions
   virtual int getID();
   virtual void printRoom();
   virtual void removeItem(char nme[]);

@@ -1,3 +1,9 @@
+/*Author: Michael Fu
+ *Date: 11/29
+ *Description: This is the CPP of the game Zuul, where players can enter rooms and pick up or drop items. 
+ */
+
+
 #include <iostream>
 #include <cstring>
 #include <vector>
@@ -6,12 +12,13 @@
 
 using namespace std;
 
-
+//initialize the functions
 void goo(int &current, vector<room*> &rooms, char gotoo[]);
 void get(int current, vector<room*> &rooms, char getting[], vector<char*> &inventory);
 void drop(int current, vector<room*> &rooms, char dropping[], vector<char*> &inventory);
 
 int main(){
+  //create the vector of rooms, the inventory, and other useful variables
   vector<room*> rooms;
   vector<char*> inventory;
 
@@ -21,6 +28,8 @@ int main(){
   int currentRoom = 0;
 
   //creating the rooms :\
+  //For each of the rooms, initialize two character arrays for the name and description of each room, a map of characters and ints for the exits, and a vector of items for the rooms. Then, if the room has an item, add the item to the room and push the finalized room back into the vector of rooms. 
+  
   //1-20 lab
 
   char* onetwentyname = new char[10];
@@ -327,6 +336,8 @@ int main(){
   
   while(justKeepGoing == true){
 
+    //create character arrays for the two parts of the input, and split them up b by going through the input until we reach a space or the end of the input, and keeping track of the index of the space/end
+    //Then, set firstword to the input up until the index and secondword to everything after the index. 
 
     char firstword[40];
     char secondword[40];
@@ -353,32 +364,39 @@ int main(){
     secondword[y]='\0';
 
 
-    
+    //if the firstword is go, call the go function and print the information of the new room we are in. 
 
     if(strcmp(firstword, "GO")==0){
       goo(currentRoom, rooms, secondword);
       rooms[currentRoom]->printRoom();
     }
+    //if the firstword is get, call the get function
     if(strcmp(firstword, "GET")==0){
       get(currentRoom, rooms, secondword, inventory);
     }
     if(strcmp(firstword, "DROP")==0){
+      //if the firstword is drop, call the drop function
       drop(currentRoom, rooms, secondword, inventory);
     }
     if(strcmp(firstword, "INVENTORY")==0){
+      //if the first(and only) word is inventory, then go through the inventory and print out each element. 
       if(inventory.size()!=0){
 	for(int i = 0;i<inventory.size();i++){
 	  cout << inventory[i] << ", ";
 	}
+	cout << endl;
       }else{
+	//if there is nothing in the inventory, print so
 	cout << "no items in inventory" << endl;
       }
-      cout << endl;
+      c
     }
     if(strcmp(firstword, "QUIT")==0){
+      //if the firstword is quit, set the justkeepgoing to false so the loop stops
       justKeepGoing = false;
     }
     if (strcmp(firstword, "HELP")==0){
+      //if the word is help, print out all of the commands
       cout << "The commands:" << endl;
       cout << "Enter 'GO [one of the exits]' to go through an exit" << endl;
       cout << "Enter 'GET [name of the item]' to pick an item up" << endl;
@@ -388,15 +406,18 @@ int main(){
       cout << "Enter 'QUIT' to end the game" << endl;
     }
     if((strcmp(firstword, "HELP")!=0) && (strcmp(firstword, "QUIT")!=0) && (strcmp(firstword, "INVENTORY")!=0) && (strcmp(firstword, "DROP")!=0) && (strcmp(firstword, "GET")!=0) && (strcmp(firstword, "GO")!=0)){
+      //if the firstword was none of the commands, print out not a valid command. 
       cout << "Not a valid command. Remember to use all caps." << endl;
     }
 
     if(inventory.size()==5){
+      //if the inventory size is 5(collected all the items) then print that they won and break the while loop. 
       cout << "Congrats! You have won the game!" << endl;
       justKeepGoing=false;
       break;
     }
 
+    //print out a big line after time the loop goes through to make it easier to see
     cout << endl;
     cout << "--------------------------------------------------------------------" << endl;
 
@@ -409,12 +430,15 @@ int main(){
 
 
 void goo(int &current, vector<room*> &rooms, char gotoo[]){
+  //for the go function, make a character of the first character in gotoo, and pass it into the exitroom function of the room class. (see room.cpp for what the output of the function means)
   
   char where = gotoo[0];
   if(rooms[current]->exitRoom(gotoo) != -1){
+    //if the output isnt 1, then set the currentroom(passed by reference) to the output
     current = rooms[current]->exitRoom(gotoo);
 
   } else {
+    //otherwise say that it's not a valid exit
     cout << "that is not a valid exit." << endl;
   }
 }
@@ -422,6 +446,7 @@ void goo(int &current, vector<room*> &rooms, char gotoo[]){
 
 
 void get(int current, vector<room*> &rooms, char getting[], vector<char*> &inventory){
+  //for the get function, if the item is found in the rooom(room->findItem), then remove the item from the current room and add it to the inventory. Then output that it has been added. 
   char* lookingfor = new char[20];
   strcpy(lookingfor, getting);
   if(rooms[current]->findItem(lookingfor)==true){
@@ -429,12 +454,14 @@ void get(int current, vector<room*> &rooms, char getting[], vector<char*> &inven
     inventory.push_back(lookingfor);
     cout << lookingfor << " has been added to your inventory. " << endl;
   } else {
+    //otherwise, output that the item either does not exist or is not in this room. 
     cout << "This item either does not exist or is not in this room. " << endl;
   }
 }
 
 
 void drop(int current, vector<room*> &rooms, char dropping[], vector<char*> &inventory){
+  //for the drop function, go through the inventory and if the item is in the inventory, remove the item from the inventory and add the item to the room. Then output that the item has been dropped. 
   char* drop = new char[10];
   strcpy(drop, dropping);
   for(int i = 0;i<inventory.size();i++){
@@ -445,5 +472,6 @@ void drop(int current, vector<room*> &rooms, char dropping[], vector<char*> &inv
       return;
     }
   }
+  //if the function hasn't returned yet, then output that the item is not in the inventory. 
   cout << drop << " is not in your inventory. " << endl;
 }
