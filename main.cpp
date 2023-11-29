@@ -17,7 +17,7 @@ int main(){
   bool justKeepGoing=true;
   char input[80];
   int currentRoom = 0;
-  
+
   //creating the rooms :\
   //1-20 lab
 
@@ -57,7 +57,25 @@ int main(){
   strcpy(northpol, "north pole");
   north->addItem(northpol);
   rooms.push_back(north);
-  
+
+
+  //east
+  char* eastname = new char[10];
+  strcpy(eastname, "east");
+  char* eastdes = new char[100];
+  strcpy(eastdes, "this room is east of 1-20");
+  map<char, int> eastexits;
+  eastexits['E']=7;
+  eastexits['W']=0;
+  eastexits['N']=9;
+  vector<item*> eastitems;
+
+  room* east = new room(2, eastname, eastdes, eastitems, eastexits);
+  char* eastsunrise = new char[30];
+  strcpy(eastsunrise, "the sunrise from the east");
+  east->addItem(eastsunrise);
+  rooms.push_back(east);
+
   
   //south
   char* southname = new char[10];
@@ -77,23 +95,7 @@ int main(){
   rooms.push_back(south);
 
 
-  //east
-  char* eastname = new char[10];
-  strcpy(eastname, "east");
-  char* eastdes = new char[100];
-  strcpy(eastdes, "this room is east of 1-20");
-  map<char, int> eastexits;
-  eastexits['E']=7;
-  eastexits['W']=0;
-  eastexits['N']=9;
-  vector<item*> eastitems;
 
-  room* east = new room(2, eastname, eastdes, eastitems, eastexits);
-  char* eastsunrise = new char[30];
-  strcpy(eastsunrise, "the sunrise from the east");
-  east->addItem(eastsunrise);
-  rooms.push_back(east);
-  
   
   //west
   char* westname = new char[10];
@@ -125,6 +127,53 @@ int main(){
   rooms.push_back(northnorth);
 
 
+  //southsouth
+  char* southsouthname = new char[20];
+  strcpy(southsouthname, "southsouth");
+  char* southsouthdes = new char[100];
+  strcpy(southsouthdes, "This room is south of south of 1-20.");
+  map<char, int> southsouthexits;
+  southsouthexits['W'] = 13;
+  southsouthexits['N']=3;
+  southsouthexits['E']=15;
+  vector<item*> southsouthitems;
+
+  room* southsouth = new room(6, southsouthname, southsouthdes, southsouthitems, southsouthexits);
+  rooms.push_back(southsouth);
+
+
+  //easteast
+  char* easteastname = new char[10];
+  strcpy(easteastname, "easteast");
+  char* easteastdes = new char[100];
+  strcpy(easteastdes, "This room is east of east of 1-20");
+  map<char, int> easteastexits;
+  easteastexits['W']=2;
+  easteastexits['S']=15;
+  vector<item*> easteastitems;
+
+  room* easteast = new room(7, easteastname, easteastdes, easteastitems, easteastexits);
+  rooms.push_back(easteast);
+
+
+  //westwest
+  char* westwestname = new char[10];
+  strcpy(westwestname, "westwest");
+  char* westwestdes = new char[100];
+  strcpy(westwestdes, "This room is west of west of 1-20.");
+  map<char, int> westwestexits;
+  westwestexits['E']=4;
+  westwestexits['S']=12;
+  vector<item*> westwestitems;
+  
+  room* westwest = new room(8, westwestname, westwestdes, westwestitems, westwestexits);
+  char* lasso = new char[30];
+  strcpy(lasso, "lasso of the wild west");
+  westwest->addItem(lasso);
+  rooms.push_back(westwest);
+  
+
+  
   //northeast
   char* northeastname = new char[20];
   strcpy(northeastname, "northeast");
@@ -154,54 +203,7 @@ int main(){
   rooms.push_back(northnortheast);
 
 
-  //northwest
-  char* northwestname = new char[10];
-  strcpy(northwestname, "northwest");
-  char* northwestdes = new char[100];
-  strcpy(northwestdes, "This room is northwest of 1-20.");
-  map<char, int> northwestexits;
-  northwestexits['E']=1;
-  northwestexits['S']=4;
-  vector<item*> northwestitems;
-
-  room* northwest = new room(16, northwestname, northwestdes, northwestitems, northwestexits);
-  char* spaceneedle = new char[30];
-  strcpy(spaceneedle, "seattle space needle");
-  northwest->addItem(spaceneedle);
-  rooms.push_back(northwest);
-
-
-  //westwest
-  char* westwestname = new char[10];
-  strcpy(westwestname, "westwest");
-  char* westwestdes = new char[100];
-  strcpy(westwestdes, "This room is west of west of 1-20.");
-  map<char, int> westwestexits;
-  westwestexits['E']=4;
-  westwestexits['S']=12;
-  vector<item*> westwestitems;
-  
-  room* westwest = new room(8, westwestname, westwestdes, westwestitems, westwestexits);
-  char* lasso = new char[30];
-  strcpy(lasso, "lasso of the wild west");
-  westwest->addItem(lasso);
-  rooms.push_back(westwest);
-
-
-  //easteast
-  char* easteastname = new char[10];
-  strcpy(easteastname, "easteast");
-  char* easteastdes = new char[100];
-  strcpy(easteastdes, "This room is east of east of 1-20");
-  map<char, int> easteastexits;
-  easteastexits['W']=2;
-  easteastexits['S']=15;
-  vector<item*> easteastitems;
-
-  room* easteast = new room(7, easteastname, easteastdes, easteastitems, easteastexits);
-  rooms.push_back(easteast);
-
-
+ 
   //southwest
   char* southwestname = new char[10];
   strcpy(southwestname, "southwest");
@@ -233,19 +235,6 @@ int main(){
   rooms.push_back(southwestwest);
 
 
-  //southsouthwestwest
-  char* southsouthwestwestname = new char[25];
-  strcpy(southsouthwestwestname, "southsouthwestwest");
-  char* southsouthwestwestdes = new char[100];
-  strcpy(southsouthwestwestdes, "This room is southwest of southwest of 1-20.");
-  map<char, int> southsouthwestwestexits;
-  southsouthwestwestexits['N']=12;
-  southsouthwestwestexits['E']=13;
-  vector<item*> southsouthwestwestitems;
-
-  room* southsouthwestwest = new room(14, southsouthwestwestname, southsouthwestwestdes, southsouthwestwestitems, southsouthwestwestexits);
-  rooms.push_back(southsouthwestwest);
-
 
   //southsouthwest
   char* southsouthwestname = new char[20];
@@ -262,22 +251,22 @@ int main(){
   rooms.push_back(southsouthwest);
 
 
-  //southsouth
-  char* southsouthname = new char[20];
-  strcpy(southsouthname, "southsouth");
-  char* southsouthdes = new char[100];
-  strcpy(southsouthdes, "This room is south of south of 1-20.");
-  map<char, int> southsouthexits;
-  southsouthexits['W'] = 13;
-  southsouthexits['N']=3;
-  southsouthexits['E']=15;
-  vector<item*> southsouthitems;
+  //southsouthwestwest
+  char* southsouthwestwestname = new char[25];
+  strcpy(southsouthwestwestname, "southsouthwestwest");
+  char* southsouthwestwestdes = new char[100];
+  strcpy(southsouthwestwestdes, "This room is southwest of southwest of 1-20.");
+  map<char, int> southsouthwestwestexits;
+  southsouthwestwestexits['N']=12;
+  southsouthwestwestexits['E']=13;
+  vector<item*> southsouthwestwestitems;
 
-  room* southsouth = new room(6, southsouthname, southsouthdes, southsouthitems, southsouthexits);
-  rooms.push_back(southsouth);
+  room* southsouthwestwest = new room(14, southsouthwestwestname, southsouthwestwestdes, southsouthwestwestitems, southsouthwestwestexits);
+  rooms.push_back(southsouthwestwest);
 
 
-  //southsoutheasteast
+
+    //southsoutheasteast
   char* southsoutheasteastname = new char[25];
   strcpy(southsoutheasteastname, "southsoutheasteast");
   char* southsoutheasteastdes = new char[100];
@@ -289,6 +278,25 @@ int main(){
 
   room* southsoutheasteast = new room(15, southsoutheasteastname, southsoutheasteastdes, southsoutheasteastitems, southsoutheasteastexits);
   rooms.push_back(southsoutheasteast);
+
+  
+  //northwest
+  char* northwestname = new char[10];
+  strcpy(northwestname, "northwest");
+  char* northwestdes = new char[100];
+  strcpy(northwestdes, "This room is northwest of 1-20.");
+  map<char, int> northwestexits;
+  northwestexits['E']=1;
+  northwestexits['S']=4;
+  vector<item*> northwestitems;
+
+  room* northwest = new room(16, northwestname, northwestdes, northwestitems, northwestexits);
+  char* spaceneedle = new char[30];
+  strcpy(spaceneedle, "seattle space needle");
+  northwest->addItem(spaceneedle);
+  rooms.push_back(northwest);
+
+
 				      
     
     
@@ -340,12 +348,12 @@ int main(){
     cin.get();
     int tempi = 0;
     for(tempi = 0;tempi<strlen(input);tempi++){
-      firstword[i]=input[i];
-      if(input[i+1]==' ' || input[i+1]=='\0'){
+      firstword[tempi]=input[tempi];
+      if(input[tempi+1]==' ' || input[tempi+1]=='\0'){
 	break;
       }
     }
-    firstword[i+1]='\0';
+    firstword[tempi+1]='\0';
 
     int x = 0;
     int y = 0;
@@ -358,7 +366,36 @@ int main(){
     }
     secondword[y]='\0';
 
-    
+    if(strcmp(firstword, "GO")==0){
+      goo(currentRoom, rooms, secondword);
+    }else if(strcmp(firstword, "GET")==0){
+      get(currentRoom, rooms, secondword, inventory);
+    }else if(strcmp(firstword, "DROP")==0){
+      drop(currentRoom, rooms, secondword, inventory);
+    }else if(strcmp(firstword, "INVENTORY")==0){
+      if(inventory.size()!=0){
+	for(int i = 0;i<inventory.size();i++){
+	  cout << inventory[i] << ", ";
+	}
+      }else{
+	cout << "no items in inventory" << endl;
+      }
+      cout << endl;
+    }else if(strcmp(firstword, "QUIT")==0){
+      justKeepGoing = false;
+    }else if (strcmp(firstword, "HELP")==0){
+      cout << "The commands:" << endl;
+      cout << "Enter 'GO [one of the exits]' to go through an exit" << endl;
+      cout << "Enter 'GET [name of the item]' to pick an item up" << endl;
+      cout << "Enter 'DROP [name of the item]' to drop an item" << endl;
+      cout << "Enter 'INVENTORY' to check what items you have" << endl;
+      cout << "Enter 'QUIT' to end the game" << endl;
+    }else{
+      cout << "Not a valid command. Remember to use all caps." << endl;
+    }
+
+    rooms[currentRoom]->printRoom();
+    cout << firstword << " break " << secondword << endl;
       
 
   }
@@ -368,6 +405,7 @@ int main(){
 
 
 void goo(int &current, vector<room*> &rooms, char gotoo[]){
+  
   char where = gotoo[0];
   if(rooms[current]->exitRoom(gotoo) != -1){
     current = rooms[current]->exitRoom(gotoo);
