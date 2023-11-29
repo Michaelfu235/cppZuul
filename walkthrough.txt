@@ -1,0 +1,2 @@
+the items are in the rooms: north, south, westwest, east, and northwest
+the room names should make it very easy to go where you want to go
