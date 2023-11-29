@@ -14,7 +14,9 @@ void drop(int current, vector<room*> &rooms, char dropping[], vector<char*> &inv
 int main(){
   vector<room*> rooms;
   vector<char*> inventory;
+
   bool justKeepGoing=true;
+  bool playerwins;
   char input[80];
   int currentRoom = 0;
 
@@ -33,7 +35,7 @@ int main(){
   vector<item*> onetwentyitems;
   room* onetwenty = new room(0,onetwentyname,onetwentydescription, onetwentyitems, onetwentyexits);
   char* onetwentyitem = new char[10];
-  strcpy(onetwentyitem,"map");
+  strcpy(onetwentyitem,"MAP");
   onetwenty->addItem(onetwentyitem);
 
   rooms.push_back(onetwenty);
@@ -54,7 +56,7 @@ int main(){
 
   room* north = new room(1, northname, northdes, northitems, northexits);
   char* northpol = new char[15];
-  strcpy(northpol, "north pole");
+  strcpy(northpol, "NORTH POLE");
   north->addItem(northpol);
   rooms.push_back(north);
 
@@ -72,7 +74,7 @@ int main(){
 
   room* east = new room(2, eastname, eastdes, eastitems, eastexits);
   char* eastsunrise = new char[30];
-  strcpy(eastsunrise, "the sunrise from the east");
+  strcpy(eastsunrise, "PICTURE OF THE SUNRISE");
   east->addItem(eastsunrise);
   rooms.push_back(east);
 
@@ -90,7 +92,7 @@ int main(){
 
   room* south = new room(3, southname, southdes, southitems, southexits);
   char* southpol = new char[15];
-  strcpy(southpol, "south pole");
+  strcpy(southpol, "SOUTH POLE");
   south->addItem(southpol);
   rooms.push_back(south);
 
@@ -168,7 +170,7 @@ int main(){
   
   room* westwest = new room(8, westwestname, westwestdes, westwestitems, westwestexits);
   char* lasso = new char[30];
-  strcpy(lasso, "lasso of the wild west");
+  strcpy(lasso, "LASSO");
   westwest->addItem(lasso);
   rooms.push_back(westwest);
   
@@ -292,7 +294,7 @@ int main(){
 
   room* northwest = new room(16, northwestname, northwestdes, northwestitems, northwestexits);
   char* spaceneedle = new char[30];
-  strcpy(spaceneedle, "seattle space needle");
+  strcpy(spaceneedle, "NEEDLE");
   northwest->addItem(spaceneedle);
   rooms.push_back(northwest);
 
@@ -301,47 +303,31 @@ int main(){
     
     
   
-  /*
-  
-  for(int i = 0;i<rooms.size();i++){
-    rooms[i]->printRoom();
-  }
+
+  cout << "This is a game of Zuul!" << endl;
+  cout << "Collect every single item that is out there to win the game!" << endl;
+  cout << "The commands:" << endl;
+  cout << "Enter 'GO [one of the exits]' to go through an exit" << endl;
+  cout << "Enter 'GET [name of the item]' to pick an item up" << endl;
+  cout << "Enter 'DROP [name of the item]' to drop an item" << endl;
+  cout << "Enter 'INVENTORY' to check what items you have" << endl;
+  cout << "Enter 'HELP' to see these commands again" << endl;
+  cout << "Enter 'QUIT' to end the game" << endl;
+
+   cout << "--------------------------------------------------------------------" \
+<< endl;
 
   
-  cout << currentRoom << endl;
+  cout << endl;
+  rooms[0]->printRoom();
+   cout << "--------------------------------------------------------------------" \
+<< endl;
 
-  char temporary[] = "NORTH";
-  goo(currentRoom, rooms, temporary);
 
-  cout << currentRoom << endl;
-
-  char temporary2[] = "WEST";
-  goo(currentRoom, rooms, temporary2);
-
-  cout << currentRoom << endl;
-
-  char getts[] = "north pole";
-  get(currentRoom, rooms, getts, inventory);
-
-  for(int i = 0;i<inventory.size();i++){
-    cout << inventory[i] << endl;
-  }
-
-  rooms[currentRoom]->printRoom();
-
-  char temporary3[] = "SOUTH";
-  char temporary4[] = "north pole";
   
-  goo(currentRoom, rooms, temporary3);
-
-  rooms[currentRoom]->printRoom();
-  drop(currentRoom, rooms, temporary4, inventory);
-
-  rooms[currentRoom]->printRoom();
-  */
-
-
   while(justKeepGoing == true){
+
+
     char firstword[40];
     char secondword[40];
     cin.get(input, 80);
@@ -366,13 +352,20 @@ int main(){
     }
     secondword[y]='\0';
 
+
+    
+
     if(strcmp(firstword, "GO")==0){
       goo(currentRoom, rooms, secondword);
-    }else if(strcmp(firstword, "GET")==0){
+      rooms[currentRoom]->printRoom();
+    }
+    if(strcmp(firstword, "GET")==0){
       get(currentRoom, rooms, secondword, inventory);
-    }else if(strcmp(firstword, "DROP")==0){
+    }
+    if(strcmp(firstword, "DROP")==0){
       drop(currentRoom, rooms, secondword, inventory);
-    }else if(strcmp(firstword, "INVENTORY")==0){
+    }
+    if(strcmp(firstword, "INVENTORY")==0){
       if(inventory.size()!=0){
 	for(int i = 0;i<inventory.size();i++){
 	  cout << inventory[i] << ", ";
@@ -381,23 +374,34 @@ int main(){
 	cout << "no items in inventory" << endl;
       }
       cout << endl;
-    }else if(strcmp(firstword, "QUIT")==0){
+    }
+    if(strcmp(firstword, "QUIT")==0){
       justKeepGoing = false;
-    }else if (strcmp(firstword, "HELP")==0){
+    }
+    if (strcmp(firstword, "HELP")==0){
       cout << "The commands:" << endl;
       cout << "Enter 'GO [one of the exits]' to go through an exit" << endl;
       cout << "Enter 'GET [name of the item]' to pick an item up" << endl;
       cout << "Enter 'DROP [name of the item]' to drop an item" << endl;
       cout << "Enter 'INVENTORY' to check what items you have" << endl;
+      cout << "Enter 'HELP' to see these commands again" << endl;
       cout << "Enter 'QUIT' to end the game" << endl;
-    }else{
+    }
+    if((strcmp(firstword, "HELP")!=0) && (strcmp(firstword, "QUIT")!=0) && (strcmp(firstword, "INVENTORY")!=0) && (strcmp(firstword, "DROP")!=0) && (strcmp(firstword, "GET")!=0) && (strcmp(firstword, "GO")!=0)){
       cout << "Not a valid command. Remember to use all caps." << endl;
     }
 
-    rooms[currentRoom]->printRoom();
-    cout << firstword << " break " << secondword << endl;
-      
+    if(inventory.size()==5){
+      cout << "Congrats! You have won the game!" << endl;
+      justKeepGoing=false;
+      break;
+    }
 
+    cout << endl;
+    cout << "--------------------------------------------------------------------" << endl;
+
+    
+  
   }
   
 }
