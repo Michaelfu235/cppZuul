@@ -389,7 +389,7 @@ int main(){
 	//if there is nothing in the inventory, print so
 	cout << "no items in inventory" << endl;
       }
-      c
+      
     }
     if(strcmp(firstword, "QUIT")==0){
       //if the firstword is quit, set the justkeepgoing to false so the loop stops
